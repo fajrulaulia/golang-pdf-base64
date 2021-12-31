@@ -150,7 +150,7 @@ func WriteBase64ToFile(data, filename string) error {
 
 func CreateFile(fil []byte, filename string) error {
 
-	err := os.WriteFile(filename, fil, 0644)
+	err := ioutil.WriteFile(filename, fil, 0644)
 	if err != nil {
 		return err
 	}
