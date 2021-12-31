@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
-	"time"
+	"os"
 
 	c "go-pdf-base64/app"
 
@@ -22,14 +22,13 @@ func main() {
 
 	c.AddSignHandler(r)
 
-	srv := &http.Server{
-		Handler: r,
-		Addr:    "127.0.0.1:8000",
-		// Good practice: enforce timeouts for servers you create!
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8080"
 	}
 
-	log.Fatal(srv.ListenAndServe())
+	log.Println("Running on port", port)
 
+	http.ListenAndServe(":"+port, r)
 }
