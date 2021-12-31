@@ -20,8 +20,8 @@ func AddSignHandler(r *mux.Router) {
 
 func IndexController(w http.ResponseWriter, r *http.Request) {
 	var data = map[string]string{
-		"Title":    "Convert PDF to Base64",
-		"Subtitle": "Easy to convert PDF to base64",
+		"Title":    "Convert PDF <> base64",
+		"Subtitle": "Easy to convert PDF <> base64",
 	}
 	var t, err = template.ParseFiles("index.html")
 	if err != nil {

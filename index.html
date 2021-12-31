@@ -6,12 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fajrul Project - Convert PDF to Base 64</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        function getValueFromtextarea(){
+            elms = document.getElementById('form_area');
+            var fileName = "test.pdf";
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE workaround
+                var byteCharacters = elms.value;
+                var byteNumbers = new Array(byteCharacters.length);
+                for (var i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                var byteArray = new Uint8Array(byteNumbers);
+                var blob = new Blob([byteArray], {type: 'application/pdf'});
+                window.navigator.msSaveOrOpenBlob(blob, fileName);
+            }
+            else { // much easier if not IE
+                window.open("data:application/pdf;base64," + elms.value, '', "height=600,width=800");
+            }
+        }
+    </script>
 
 </head>
-<body>
-
+<body style="padding: 10px 100px;">
+    <h1 style="text-align: center;">Simple PDF<>Base64 converter </h1>
     <div>
-        <h1 style="margin-bottom: 0;padding-bottom: 0;">{{.Title}}</h1>
+        <h2 style="margin-bottom: 0;padding-bottom: 0;">Convert PDF to Base64</h1>
         <p style="font-size: 20px;margin-top: 0;padding-top: 0;">{{.Subtitle}}</p>
 
         <form method="post" action="/process" enctype="multipart/form-data">
@@ -19,6 +38,16 @@
             <input type="file" name="file" required /><br />
             <button type="submit">Process</button>
         </form>
+    </div>
+    <br>
+<hr/>
+    <div style="margin-top: 20px;">
+        <h2 style="margin-bottom: 0;padding-bottom: 0;">Convert Base64 to PDF</h1>
+        <p style="font-size: 20px;margin-top: 0;padding-top: 0;">{{.Subtitle}}</p>
+        <textarea id="form_area" style="font-family: Arial;font-size: 12pt;width:50%;height:10vw">
+
+        </textarea><br>
+        <button onclick="getValueFromtextarea()">Show PDF</button>
     </div>
     
 </body>
