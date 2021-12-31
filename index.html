@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +8,7 @@
     <title>Fajrul Project - Convert PDF to Base 64</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
-        function getValueFromtextarea(){
+        function getValueFromtextarea() {
             elms = document.getElementById('form_area');
             var fileName = "test.pdf";
             if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE workaround
@@ -17,38 +18,84 @@
                     byteNumbers[i] = byteCharacters.charCodeAt(i);
                 }
                 var byteArray = new Uint8Array(byteNumbers);
-                var blob = new Blob([byteArray], {type: 'application/pdf'});
+                var blob = new Blob([byteArray], { type: 'application/pdf' });
                 window.navigator.msSaveOrOpenBlob(blob, fileName);
             }
             else { // much easier if not IE
                 window.open("data:application/pdf;base64," + elms.value, '', "height=600,width=800");
             }
         }
+      function  clearB(){
+            var s=document.getElementById("form_area");
+            s.value='';
+        }
     </script>
+    <style type="text/css">
+        body {
+            background: rgb(2, 0, 36);
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(83, 106, 57, 1) 100%);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .fontHeaderLvl1 {
+            font-weight: bolder;
+        }
+
+        .content {
+            margin: 10px 10px;
+        }
+
+        .buttonstyle1 {
+            background-color: orange;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin: 0px;
+        }
+
+        .fluid {
+            width: 100%;
+        }
+        .contaner{
+            display: flex;
+            flex-wrap: wrap; /* Optional. only if you want the items to wrap */
+            justify-content: center; /* For horizontal alignment */
+        }
+    </style>
 
 </head>
-<body style="padding: 10px 100px;">
-    <h1 style="text-align: center;">Simple PDF<>Base64 converter </h1>
+
+<body>
     <div>
-        <h2 style="margin-bottom: 0;padding-bottom: 0;">Convert PDF to Base64</h1>
-        <p style="font-size: 20px;margin-top: 0;padding-top: 0;">{{.Subtitle}}</p>
-
-        <form method="post" action="/process" enctype="multipart/form-data">
-            <label>The file :</label>
-            <input type="file" name="file" required /><br />
-            <button type="submit">Process</button>
-        </form>
+        <h1 style="text-align: center;">SIMPLE PDF BASE54 CONVERTER</h1>
     </div>
-    <br>
-<hr/>
-    <div style="margin-top: 20px;">
-        <h2 style="margin-bottom: 0;padding-bottom: 0;">Convert Base64 to PDF</h1>
-        <p style="font-size: 20px;margin-top: 0;padding-top: 0;">{{.Subtitle}}</p>
-        <textarea id="form_area" style="font-family: Arial;font-size: 12pt;width:50%;height:10vw">
 
-        </textarea><br>
-        <button onclick="getValueFromtextarea()">Show PDF</button>
-    </div>
+    <div class="contaner">
+        <div class="content">
+            <h2 class="fontHeaderLvl1">Convert PDF to Base64</h2>
+            <p>Easy convert PDF to Base64, <br>just click open file and choose your file</p>
+            <form method="post" action="/process" enctype="multipart/form-data">
+                <label for="file">Choose your file<br> </label>
+                <input type="file" id="file" class="buttonstyle1 " name="file" style="color:#000;  margin-bottom: 5px;"
+                    required /><br>
+                <button style="color:#000; margin-bottom: 5px;" class="buttonstyle1" type="submit">Process</button>
+            </form>
+        </div>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     
+        <div class="content">
+            <h2 class="fontHeaderLvl1">Convert PDF to Base64</h2>
+            <p>Easy convert Base64 to PDF, just paste base64 string </p>
+            <textarea id="form_area" style="font-family: Arial;font-size: 12pt;width:100%;height:20vw"></textarea><br>
+            <p>and click Show PDF to generate and show PDF file </p>
+            <button  class="buttonstyle1 " onclick="getValueFromtextarea()">Show PDF</button>
+            <button  class="buttonstyle1 " onclick="clearB()">Clear</button>
+
+        </div>
+    </div>
+
 </body>
+
 </html>
